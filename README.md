@@ -2282,6 +2282,8 @@ $ opt
 ```
 <details>
 <summary>technology mapping</summary>
+
+ 
 ```bash
 yosys> opt
 
@@ -2569,6 +2571,7 @@ Optimizing module program_counter.
 
 
 ```
+
 
 
 </details>
