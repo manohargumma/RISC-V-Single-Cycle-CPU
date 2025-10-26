@@ -2016,9 +2016,9 @@ $ opt
 
 <details>
 <summary>finite-state-machine transformations</summary>
-
-yosys> opt
 ```bash
+yosys> opt
+
 6. Executing OPT pass (performing simple optimizations).
 
 6.1. Executing OPT_EXPR pass (perform const folding).
