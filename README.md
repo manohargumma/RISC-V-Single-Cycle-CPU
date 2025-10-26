@@ -1,262 +1,158 @@
-# RISC-V-Single-Cycle-CPUPerfect! Let’s **expand your README** to make it more detailed, closer to a **mini-project report**, while still keeping it GitHub-friendly. I’ll include:
 
-* More explanation for ALU, Control Unit
-* Datapath details with LW, SW, R-type
-* Instruction encoding tables
-* Example assembly + machine code
-* Simulation & extension ideas
 
-Here’s the **enhanced README.md**:
+# RISC-V Single-Cycle CPU (RV32I Subset)
 
----
 
-# RISC-V Single-Cycle Microarchitecture
-
-### Project By: MERL-DSU 🖥️⚙️
-
----
 
 ## 📌 Overview
 
-This project implements a **32-bit Single-Cycle RISC-V CPU**, designed to execute a core subset of the **RV32I instruction set**.
-It integrates **key microarchitecture components**, including:
+This repository implements a **32-bit single-cycle RISC-V CPU** capable of executing a subset of **RV32I instructions**, including:
 
-* Arithmetic Logic Unit (ALU)
-* Control Unit (Main & ALU Decoder)
-* Register File
-* Instruction & Data Memory
-* Single-Cycle Datapath supporting **LW, SW, and R-Type instructions**
+* **R-Type:** `ADD`, `SUB`, `AND`, `OR`, `SLT`
+* **I-Type:** `ADDI`, `LW`
+* **S-Type:** `SW`
+* **B-Type:** `BEQ`
 
-The design follows **synchronous sequential logic**, with state elements updated on the rising clock edge.
+The CPU is designed for **educational purposes** and can be easily extended to support more instructions or pipelining.
 
----
+**Key Features:**
 
-## 🔹 Table of Contents
-
-1. [Arithmetic Logic Unit (ALU)](#-arithmetic-logic-unit-alu)
-2. [Control Unit](#-control-unit)
-3. [Instruction Encoding](#-instruction-encoding)
-4. [Microarchitecture Design](#-microarchitecture-design)
-5. [Instruction Datapath](#-instruction-datapath)
-6. [Verilog Implementation](#-verilog-implementation)
-7. [Simulation & Testing](#-simulation--testing)
-8. [Project Status & Future Enhancements](#-project-status--future-enhancements)
+* Single-cycle execution (all operations complete in one clock cycle)
+* Word-addressed **instruction and data memory**
+* 32 general-purpose registers with **x0 hardwired to zero**
+* Full **ALU and Control Unit implementation**
+* Supports **immediate generation**, branch calculation, and memory access
 
 ---
 
-## 🔹 Arithmetic Logic Unit (ALU)
+##  File Structure
 
-The **ALU** performs arithmetic and logic operations based on a 3-bit **ALUControl** signal.
-It generates:
-
-* 32-bit **Result**
-* 1-bit **Zero flag** (set when Result = 0)
-
-| ALUControl | Operation | Description                               |
-| ---------- | --------- | ----------------------------------------- |
-| 000        | ADD       | Addition: Result = A + B                  |
-| 001        | SUB       | Subtraction: Result = A - B               |
-| 010        | SLT       | Set Less Than: Result = 1 if A < B else 0 |
-| 011        | OR        | Bitwise OR: Result = A | B                |
-| 100        | AND       | Bitwise AND: Result = A & B               |
-
-**Design Principles:**
-
-* Divide & Conquer: Arithmetic and logic operations handled separately
-* Multiplexers select the correct output based on ALUControl
-* Supports **future extension** to more operations
+| Module                | Description                                                  |
+| --------------------- | ------------------------------------------------------------ |
+| `program_counter`     | Holds the current PC value; synchronous reset                |
+| `pc_adder`            | Computes `PC + 4`                                            |
+| `pc_mux`              | Selects next PC between `PC+4` and branch target             |
+| `Instruction_Memory`  | Stores program instructions; word-addressed                  |
+| `Register_File`       | 32x32 register file; synchronous write, asynchronous read    |
+| `main_control_unit`   | Generates control signals from opcode                        |
+| `immediate_generator` | Generates sign-extended immediates                           |
+| `ALU`                 | Performs arithmetic and logic operations                     |
+| `ALU_Control`         | Converts `funct3`, `funct7`, `ALUOp` into ALU operation code |
+| `MUX2to1`             | Generic 2:1 multiplexer                                      |
+| `Data_Memory`         | Read/write memory for LW/SW instructions                     |
+| `MUX2to1_DataMemory`  | Write-back selection between ALU and memory                  |
+| `Branch_Adder`        | Computes branch target addresses                             |
+| `RISCV_Top`           | Top-level wrapper integrating all modules                    |
 
 ---
 
-## 🔹 Control Unit
+##  Instruction Examples
 
-The **Control Unit** interprets the instruction opcode and function fields to generate signals for the datapath.
+The instruction memory is preloaded with a **simple ALU program**:
 
-| Signal    | Purpose                                                |
-| --------- | ------------------------------------------------------ |
-| RegWrite  | Enable writing to register file                        |
-| MemWrite  | Enable writing to data memory                          |
-| ALUOp     | Determines ALU operation                               |
-| ALUSrc    | Selects ALU second operand (register or immediate)     |
-| ResultSrc | Selects data to write back (ALU result or memory data) |
+| Addr | Instruction    | Description                |
+| ---- | -------------- | -------------------------- |
+| 0x00 | `addi x0,x0,0` | NOP                        |
+| 0x04 | `addi x1,x0,5` | x1 = 5                     |
+| 0x08 | `addi x2,x0,3` | x2 = 3                     |
+| 0x0C | `add x3,x1,x2` | x3 = x1 + x2               |
+| 0x10 | `sw x3,0(x0)`  | Store x3 in data memory[0] |
+| 0x14 | `lw x4,0(x0)`  | Load memory[0] into x4     |
 
-Two-stage decoding:
+**Expected CPU Behavior:**
 
-1. **Main Decoder:** Generates high-level control signals based on opcode
-2. **ALU Decoder:** Converts **ALUOp + funct fields** into 3-bit ALUControl
-
-**Supported Instruction Types:**
-
-* R-Type: ADD, SUB, AND, OR, SLT
-* I-Type: LW
-* S-Type: SW
+* x1 = 5
+* x2 = 3
+* x3 = 8
+* Memory[0] = 8
+* x4 = 8
 
 ---
 
-## 🔹 Instruction Encoding
+##  CPU Datapath Overview
 
-### R-Type (Register)
+The CPU has a **single-cycle datapath**, where all instruction types are executed in **one clock cycle**:
 
-| Field  | Bits  | Description                        |
-| ------ | ----- | ---------------------------------- |
-| funct7 | 31–25 | Specifies operation variation      |
-| rs2    | 24–20 | Second source register             |
-| rs1    | 19–15 | First source register              |
-| funct3 | 14–12 | Specifies ALU operation            |
-| rd     | 11–7  | Destination register               |
-| opcode | 6–0   | Operation code (33 for all R-type) |
+1. **Fetch:** Read instruction from `Instruction_Memory` using PC
+2. **Decode:** Parse instruction fields, read registers, generate control signals
+3. **Execute:** ALU performs arithmetic/logic or calculates memory/branch addresses
+4. **Memory:** Read/write data memory for `LW`/`SW`
+5. **Write-Back:** Update register file with ALU or memory result
 
-Example: `add x3, x1, x2` → opcode: `33`, funct3: `000`, funct7: `0000000`
-
-### I-Type (Immediate)
-
-| Field  | Bits  | Description                      |
-| ------ | ----- | -------------------------------- |
-| imm    | 31–20 | 12-bit immediate (sign-extended) |
-| rs1    | 19–15 | Source register                  |
-| funct3 | 14–12 | Operation type                   |
-| rd     | 11–7  | Destination register             |
-| opcode | 6–0   | Opcode (e.g., 3 for LW)          |
-
-Example: `lw x5, 12(x1)` → opcode: `0000011`, imm: `12`
-
-### S-Type (Store)
-
-| Field     | Bits  | Description              |
-| --------- | ----- | ------------------------ |
-| imm[11:5] | 31–25 | Upper immediate bits     |
-| rs2       | 24–20 | Source register (data)   |
-| rs1       | 19–15 | Base address register    |
-| funct3    | 14–12 | Operation type           |
-| imm[4:0]  | 11–7  | Lower immediate bits     |
-| opcode    | 6–0   | Opcode (e.g., 35 for SW) |
+**Branching:** `BEQ` instruction uses a **branch adder** and PC mux to select next PC.
 
 ---
 
-## 🔹 Microarchitecture Design
+##  Control Signals
 
-**State Elements:**
-
-| Element              | Size         | Function                         |
-| -------------------- | ------------ | -------------------------------- |
-| Program Counter (PC) | 32-bit       | Tracks current instruction       |
-| Register File        | 32 × 32      | Stores general-purpose registers |
-| Instruction Memory   | 32-bit words | Holds program instructions       |
-| Data Memory          | 32-bit words | Holds data                       |
-
-**Datapath Features:**
-
-* Heavy lines = 32-bit data bus
-* Medium lines = 5-bit register addresses
-* Narrow lines = Control signals
-* Synchronous updates on **clock rising edge**
+| Signal     | Function                                                |
+| ---------- | ------------------------------------------------------- |
+| `RegWrite` | Enable writing to register file                         |
+| `MemRead`  | Enable reading from data memory                         |
+| `MemWrite` | Enable writing to data memory                           |
+| `MemToReg` | Select between ALU result or memory data for write-back |
+| `ALUSrc`   | Choose ALU operand (register or immediate)              |
+| `Branch`   | Indicates branch instruction                            |
+| `ALUOp`    | Determines ALU operation type                           |
 
 ---
 
-## 🔹 Instruction Datapath
+##  ALU Operations
 
-### LW (Load Word)
+| ALUcontrol | Operation | Description            |
+| ---------- | --------- | ---------------------- |
+| 0000       | ADD       | Addition               |
+| 0001       | SUB       | Subtraction            |
+| 0010       | AND       | Bitwise AND            |
+| 0011       | OR        | Bitwise OR             |
+| 0100       | XOR       | Bitwise XOR            |
+| 0101       | SLL       | Shift left logical     |
+| 0110       | SRL       | Shift right logical    |
+| 0111       | SRA       | Shift right arithmetic |
+| 1000       | SLT       | Set less than          |
 
-1. Read `rs1` from register file → base address
-2. Sign-extend 12-bit immediate
-3. ALU computes address: `Base + Offset`
-4. Data Memory outputs ReadData → write back to `rd`
-
-### SW (Store Word)
-
-1. Read `rs1` → base, `rs2` → data
-2. Sign-extend immediate, ALU computes address
-3. MemWrite = 1 → store data in memory
-4. RegWrite = 0 → no register written
-
-### R-Type (ADD, SUB, AND, OR, SLT)
-
-1. Read `rs1`, `rs2` → ALU inputs
-2. ALU performs operation based on ALUControl
-3. Write ALUResult to `rd` in Register File
-4. ALUSrc = 0 (uses register), ResultSrc = 0 (ALU output)
+**Zero flag** is set when ALU result is zero, used for branching.
 
 ---
 
-## 💻 Verilog Implementation
+##  Simulation
 
-### ALU Module
-
-```verilog
-module ALU (
-    input  [31:0] A,
-    input  [31:0] B,
-    input  [2:0]  ALUControl,
-    output reg [31:0] Result,
-    output Zero
-);
-
-always @(*) begin
-    case(ALUControl)
-        3'b000: Result = A + B;
-        3'b001: Result = A - B;
-        3'b010: Result = (A < B) ? 32'b1 : 32'b0;
-        3'b011: Result = A | B;
-        3'b100: Result = A & B;
-        default: Result = 32'b0;
-    endcase
-end
-
-assign Zero = (Result == 0);
-
-endmodule
-```
-
----
-
-## 🔹 Simulation & Testing
-
-Generate waveform:
+**Waveform generation** using Icarus Verilog & GTKWave:
 
 ```bash
-iverilog -o cpu_tb cpu.v alu.v control.v regfile.v ...
+iverilog -o cpu_tb riscv_single_file.v
 vvp cpu_tb
 gtkwave dump.vcd
 ```
 
-**Observation:**
+Check:
 
-* PC increments by 4 every cycle
-* LW loads correct memory data
-* SW updates memory correctly
-* R-Type ALU operations produce expected results
-
----
-
-## 🔹 Project Status & Future Enhancements
-
-✅ Completed:
-
-* ALU, Control Unit
-* Datapath for LW, SW, R-Type
-* Register File and Memory Interfaces
-
-🚀 Future Work:
-
-* Implement **Branch & Jump Instructions** (B-Type, JAL)
-* Pipeline for higher performance
-* Hazard detection and forwarding
+* PC increments by 4
+* Register writes occur correctly
+* Data memory updates as expected
+* ALU operations match instruction semantics
 
 ---
 
-## 🧑‍💻 Contributors
+##  How to Run
 
-**MERL-DSU Team** – Hardware design, Verilog coding, simulation & testing
+1. Clone the repository:
+
+```bash
+git clone https://github.com/<username>/riscv_single_cycle_cpu.git
+cd riscv_single_cycle_cpu
+```
+
+2. Compile and simulate:
+
+```bash
+iverilog -o cpu_tb riscv_single_file.v
+vvp cpu_tb
+gtkwave dump.vcd
+```
+
+3. Observe register and memory behavior in the waveform viewer.
 
 ---
 
-If you want, I can **also add:**
-
-1. **Datapath diagrams for all instructions** (LW/SW/R-Type) in **GitHub-friendly SVG/PNG**
-2. **Full Verilog top-module** combining ALU, control unit, register file, memories, and muxes
-3. **Example assembly programs with expected output**
-4. **Waveform screenshots**
-
-This would make your **README almost 10–15 pages worth of content** visually on GitHub.
-
-Do you want me to go ahead and **add diagrams + top-level Verilog + example assembly programs** next?
+Do you want me to create that diagram and attach it for the README?
