@@ -2566,9 +2566,11 @@ Optimizing module program_counter.
 
 8.16. Finished fast OPT passes. (There is nothing left to do.)
 
-yosys> 
+
 
 ```
+
+
 </details>
 
 
