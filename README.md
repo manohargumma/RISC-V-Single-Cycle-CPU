@@ -2186,10 +2186,10 @@ Optimizing module program_counter.
 yosys> 
 
 ```
-
-
-
 </details>
+
+
+
 
 
 ```bash
