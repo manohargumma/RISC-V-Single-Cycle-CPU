@@ -2018,6 +2018,7 @@ $ opt
 
 <details>
 <summary>finite-state-machine transformations</summary>
+  
 ```bash
 
 yosys> opt
@@ -2185,6 +2186,7 @@ Optimizing module program_counter.
 yosys> 
 
 ```
+
 
 
 </details>
