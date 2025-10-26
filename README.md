@@ -153,8 +153,9 @@ $ hierarchy -check -top RISCV_Top
 ![image](https://github.com/manohargumma/RISC-V-Single-Cycle-CPU/blob/3a2e1066121de5f42eed6b5f67ed898c8d07232a/images/Screenshot%20from%202025-10-26%2015-13-58.png)
 
 ### Synthesis
-
+```bash
 yosys> proc
+```
 <details>
 <summary>proc report</summary>
 
@@ -2188,11 +2189,13 @@ yosys>
 
 </details>
 
+
 ```bash
 $ techmap
 
 ```
 <details>
+  
 <summary>techmap report</summary>
 ```bash
 yosys> techmap
@@ -2280,7 +2283,7 @@ $ opt
 <details>
 <summary>technology mapping</summary>
 ```bash
-osys> opt
+yosys> opt
 
 8. Executing OPT pass (performing simple optimizations).
 
