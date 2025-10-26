@@ -155,6 +155,12 @@ $ hierarchy -check -top RISCV_Top
 ### Synthesis
 
 yosys> proc
+<details>
+<summary>proc report</summary>
+
+```bash
+
+
 
 3. Executing PROC pass (convert processes to netlists).
 
@@ -1401,6 +1407,7 @@ yosys>
 
 ```
 </details>
+
 ```bash
 $opt
 
