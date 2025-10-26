@@ -1963,7 +1963,7 @@ yosys>
 
 </details>
 
-### Elaborate hierarchy and set top module
+
 ```bash
 $ fsm
 
@@ -2275,7 +2275,7 @@ $ opt
 ```
 <details>
 <summary>technology mapping</summary>
-
+```bash
 osys> opt
 
 8. Executing OPT pass (performing simple optimizations).
@@ -2561,7 +2561,7 @@ Optimizing module program_counter.
 
 yosys> 
 
-
+```
 
 </details>
 
