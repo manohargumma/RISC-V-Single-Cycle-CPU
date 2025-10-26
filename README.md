@@ -2018,7 +2018,7 @@ $ opt
 <summary>finite-state-machine transformations</summary>
 
 yosys> opt
-
+```bash
 6. Executing OPT pass (performing simple optimizations).
 
 6.1. Executing OPT_EXPR pass (perform const folding).
@@ -2180,7 +2180,7 @@ Optimizing module program_counter.
 6.9. Finished fast OPT passes. (There is nothing left to do.)
 
 yosys> 
-
+```
 
 
 </details>
@@ -2190,9 +2190,9 @@ $ techmap
 
 ```
 <details>
-<summary>technology mapping</summary>
-
-osys> techmap
+<summary>techmap report</summary>
+```bash
+yosys> techmap
 
 7. Executing TECHMAP pass (map to technology primitives).
 
