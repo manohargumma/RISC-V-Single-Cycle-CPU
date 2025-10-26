@@ -2196,3 +2196,377 @@ yosys>
 $ techmap
 
 ```
+<details>
+<summary>Techmap Report</summary>
+  
+```bash
+yosys> techmap
+
+7. Executing TECHMAP pass (map to technology primitives).
+
+7.1. Executing Verilog-2005 frontend: /usr/local/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/usr/local/bin/../share/yosys/techmap.v' to AST representation.
+verilog frontend filename /usr/local/bin/../share/yosys/techmap.v
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `\$connect'.
+Generating RTLIL representation for module `\$input_port'.
+Successfully finished Verilog frontend.
+
+7.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $adff.
+Using extmapper simplemap for cells of type $mux.
+Running "alumacc" on wrapper $extern:wrap:$add:A_SIGNED=0:A_WIDTH=32:B_SIGNED=0:B_WIDTH=32:Y_WIDTH=32:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$add:A_SIGNED=0:A_WIDTH=32:B_SIGNED=0:B_WIDTH=32:Y_WIDTH=32:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$add:A_SIGNED=0:A_WIDTH=32:B_SIGNED=0:B_WIDTH=32:Y_WIDTH=32:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $paramod$fbc7873bff55778c0b3173955b7e4bce1d9d6834\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000100000 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
+Using extmapper simplemap for cells of type $xor.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $reduce_or.
+Using template $paramod$521ce43182eecb9f60c72393a788160d2c356bf5\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $eq.
+Using template $paramod$59b03ae2620a41577de8da5f5c97b2919e82362b\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $logic_and.
+Using template $paramod$c53cc135d8261988f4c9bfbc25fde3d37324a6d7\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $adffe.
+Using template $paramod$e7881829892428b041b211e91f947136d8e20e08\_90_pmux for cells of type $pmux.
+Using template $paramod$bf2533632d512eac76dd186c0da49367e29b8e98\_90_pmux for cells of type $pmux.
+Running "alumacc" on wrapper $extern:wrap:$sub:A_SIGNED=0:A_WIDTH=32:B_SIGNED=0:B_WIDTH=32:Y_WIDTH=32:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$sub:A_SIGNED=0:A_WIDTH=32:B_SIGNED=0:B_WIDTH=32:Y_WIDTH=32:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$sub:A_SIGNED=0:A_WIDTH=32:B_SIGNED=0:B_WIDTH=32:Y_WIDTH=32:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $paramod$constmap:4621fcf06a436d1e2a4080e2ed9866a7d07a6e07$paramod$335cfd09f1afa8139c4aafcbbe5f361887b79c5e\_90_shift_ops_shr_shl_sshl_sshr for cells of type $shl.
+Using template $paramod$constmap:4621fcf06a436d1e2a4080e2ed9866a7d07a6e07$paramod$feecc7a0dbd012970970f2858f15e786e251f677\_90_shift_ops_shr_shl_sshl_sshr for cells of type $shr.
+Using template $paramod$constmap:4621fcf06a436d1e2a4080e2ed9866a7d07a6e07$paramod$e765c459d3029c22a22a27989e94858fd9ebfa9c\_90_shift_ops_shr_shl_sshl_sshr for cells of type $sshr.
+Running "alumacc" on wrapper $extern:wrap:$lt:A_SIGNED=1:A_WIDTH=32:B_SIGNED=1:B_WIDTH=32:Y_WIDTH=1:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $extern:wrap:$lt:A_SIGNED=1:A_WIDTH=32:B_SIGNED=1:B_WIDTH=32:Y_WIDTH=1:394426c56d1a028ba8fdd5469b163e04011def47 for cells of type $extern:wrap:$lt:A_SIGNED=1:A_WIDTH=32:B_SIGNED=1:B_WIDTH=32:Y_WIDTH=1:394426c56d1a028ba8fdd5469b163e04011def47.
+Using template $paramod$80834bdd89ff0e27a02312429a7cc3a2e63489a8\_90_pmux for cells of type $pmux.
+Using template $paramod$2653f68ddb8eab7b1907b4a20767b72a824a7a36\_90_alu for cells of type $alu.
+No more expansions possible.
+<suppressed ~3116 debug messages>
+
+```
+</details>
+
+
+```bash
+$ opt
+
+```
+<details>
+<summary>technology mapping</summary>
+```bash
+yosys> opt
+
+8. Executing OPT pass (performing simple optimizations).
+
+8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ALU.
+<suppressed ~520 debug messages>
+Optimizing module ALU_Control.
+<suppressed ~11 debug messages>
+Optimizing module Branch_Adder.
+<suppressed ~132 debug messages>
+Optimizing module Data_Memory.
+<suppressed ~378 debug messages>
+Optimizing module Instruction_Memory.
+Optimizing module MUX2to1.
+Optimizing module MUX2to1_DataMemory.
+Optimizing module RISCV_Top.
+Optimizing module Register_File.
+<suppressed ~465 debug messages>
+Optimizing module immediate_generator.
+<suppressed ~77 debug messages>
+Optimizing module main_control_unit.
+<suppressed ~46 debug messages>
+Optimizing module pc_adder.
+<suppressed ~283 debug messages>
+Optimizing module pc_mux.
+Optimizing module program_counter.
+
+8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU'.
+<suppressed ~1368 debug messages>
+Finding identical cells in module `\ALU_Control'.
+Finding identical cells in module `\Branch_Adder'.
+Finding identical cells in module `\Data_Memory'.
+<suppressed ~1242 debug messages>
+Finding identical cells in module `\Instruction_Memory'.
+Finding identical cells in module `\MUX2to1'.
+Finding identical cells in module `\MUX2to1_DataMemory'.
+Finding identical cells in module `\RISCV_Top'.
+Finding identical cells in module `\Register_File'.
+<suppressed ~1335 debug messages>
+Finding identical cells in module `\immediate_generator'.
+<suppressed ~384 debug messages>
+Finding identical cells in module `\main_control_unit'.
+<suppressed ~84 debug messages>
+Finding identical cells in module `\pc_adder'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\pc_mux'.
+Finding identical cells in module `\program_counter'.
+Removed a total of 1472 cells.
+
+8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ALU..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ALU_Control..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \Branch_Adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \Data_Memory..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \Instruction_Memory..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \MUX2to1..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \MUX2to1_DataMemory..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \RISCV_Top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \Register_File..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \immediate_generator..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \main_control_unit..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \pc_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \pc_mux..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \program_counter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ALU.
+  Optimizing cells in module \ALU_Control.
+  Optimizing cells in module \Branch_Adder.
+  Optimizing cells in module \Data_Memory.
+  Optimizing cells in module \Instruction_Memory.
+  Optimizing cells in module \MUX2to1.
+  Optimizing cells in module \MUX2to1_DataMemory.
+  Optimizing cells in module \RISCV_Top.
+  Optimizing cells in module \Register_File.
+  Optimizing cells in module \immediate_generator.
+  Optimizing cells in module \main_control_unit.
+  Optimizing cells in module \pc_adder.
+  Optimizing cells in module \pc_mux.
+  Optimizing cells in module \program_counter.
+Performed a total of 0 changes.
+
+8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU'.
+Finding identical cells in module `\ALU_Control'.
+Finding identical cells in module `\Branch_Adder'.
+Finding identical cells in module `\Data_Memory'.
+Finding identical cells in module `\Instruction_Memory'.
+Finding identical cells in module `\MUX2to1'.
+Finding identical cells in module `\MUX2to1_DataMemory'.
+Finding identical cells in module `\RISCV_Top'.
+Finding identical cells in module `\Register_File'.
+Finding identical cells in module `\immediate_generator'.
+Finding identical cells in module `\main_control_unit'.
+Finding identical cells in module `\pc_adder'.
+Finding identical cells in module `\pc_mux'.
+Finding identical cells in module `\program_counter'.
+Removed a total of 0 cells.
+
+8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU..
+Finding unused cells or wires in module \ALU_Control..
+Finding unused cells or wires in module \Branch_Adder..
+Finding unused cells or wires in module \Data_Memory..
+Finding unused cells or wires in module \Instruction_Memory..
+Finding unused cells or wires in module \MUX2to1..
+Finding unused cells or wires in module \MUX2to1_DataMemory..
+Finding unused cells or wires in module \RISCV_Top..
+Finding unused cells or wires in module \Register_File..
+Finding unused cells or wires in module \immediate_generator..
+Finding unused cells or wires in module \main_control_unit..
+Finding unused cells or wires in module \pc_adder..
+Finding unused cells or wires in module \pc_mux..
+Finding unused cells or wires in module \program_counter..
+Removed 130 unused cells and 2449 unused wires.
+<suppressed ~138 debug messages>
+
+8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ALU.
+Optimizing module ALU_Control.
+Optimizing module Branch_Adder.
+Optimizing module Data_Memory.
+Optimizing module Instruction_Memory.
+Optimizing module MUX2to1.
+Optimizing module MUX2to1_DataMemory.
+Optimizing module RISCV_Top.
+Optimizing module Register_File.
+Optimizing module immediate_generator.
+Optimizing module main_control_unit.
+Optimizing module pc_adder.
+Optimizing module pc_mux.
+Optimizing module program_counter.
+
+8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ALU..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \ALU_Control..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \Branch_Adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \Data_Memory..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \Instruction_Memory..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \MUX2to1..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \MUX2to1_DataMemory..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \RISCV_Top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \Register_File..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \immediate_generator..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \main_control_unit..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \pc_adder..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \pc_mux..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \program_counter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ALU.
+  Optimizing cells in module \ALU_Control.
+  Optimizing cells in module \Branch_Adder.
+  Optimizing cells in module \Data_Memory.
+  Optimizing cells in module \Instruction_Memory.
+  Optimizing cells in module \MUX2to1.
+  Optimizing cells in module \MUX2to1_DataMemory.
+  Optimizing cells in module \RISCV_Top.
+  Optimizing cells in module \Register_File.
+  Optimizing cells in module \immediate_generator.
+  Optimizing cells in module \main_control_unit.
+  Optimizing cells in module \pc_adder.
+  Optimizing cells in module \pc_mux.
+  Optimizing cells in module \program_counter.
+Performed a total of 0 changes.
+
+8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU'.
+Finding identical cells in module `\ALU_Control'.
+Finding identical cells in module `\Branch_Adder'.
+Finding identical cells in module `\Data_Memory'.
+Finding identical cells in module `\Instruction_Memory'.
+Finding identical cells in module `\MUX2to1'.
+Finding identical cells in module `\MUX2to1_DataMemory'.
+Finding identical cells in module `\RISCV_Top'.
+Finding identical cells in module `\Register_File'.
+Finding identical cells in module `\immediate_generator'.
+Finding identical cells in module `\main_control_unit'.
+Finding identical cells in module `\pc_adder'.
+Finding identical cells in module `\pc_mux'.
+Finding identical cells in module `\program_counter'.
+Removed a total of 0 cells.
+
+8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU..
+Finding unused cells or wires in module \ALU_Control..
+Finding unused cells or wires in module \Branch_Adder..
+Finding unused cells or wires in module \Data_Memory..
+Finding unused cells or wires in module \Instruction_Memory..
+Finding unused cells or wires in module \MUX2to1..
+Finding unused cells or wires in module \MUX2to1_DataMemory..
+Finding unused cells or wires in module \RISCV_Top..
+Finding unused cells or wires in module \Register_File..
+Finding unused cells or wires in module \immediate_generator..
+Finding unused cells or wires in module \main_control_unit..
+Finding unused cells or wires in module \pc_adder..
+Finding unused cells or wires in module \pc_mux..
+Finding unused cells or wires in module \program_counter..
+
+8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module ALU.
+Optimizing module ALU_Control.
+Optimizing module Branch_Adder.
+Optimizing module Data_Memory.
+Optimizing module Instruction_Memory.
+Optimizing module MUX2to1.
+Optimizing module MUX2to1_DataMemory.
+Optimizing module RISCV_Top.
+Optimizing module Register_File.
+Optimizing module immediate_generator.
+Optimizing module main_control_unit.
+Optimizing module pc_adder.
+Optimizing module pc_mux.
+Optimizing module program_counter.
+
+8.16. Finished fast OPT passes. (There is nothing left to do.)
+
+yosys> 
+```
+
+</details>
