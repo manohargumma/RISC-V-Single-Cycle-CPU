@@ -2017,6 +2017,7 @@ $ opt
 <details>
 <summary>finite-state-machine transformations</summary>
 ```bash
+
 yosys> opt
 
 6. Executing OPT pass (performing simple optimizations).
@@ -2266,6 +2267,7 @@ No more expansions possible.
 
 yosys> 
 
+```
 
 </details>
 
