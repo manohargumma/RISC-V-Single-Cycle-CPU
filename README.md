@@ -2008,6 +2008,7 @@ Finding unused cells or wires in module \program_counter..
 
 ```
 </details>
+
 ```bash
 $ opt
 
@@ -2181,6 +2182,7 @@ Optimizing module program_counter.
 6.9. Finished fast OPT passes. (There is nothing left to do.)
 
 yosys> 
+
 ```
 
 
