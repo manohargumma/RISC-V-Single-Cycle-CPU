@@ -4,9 +4,9 @@
 
 
 
-## 📌 Overview
+##  Overview
 
-This repository implements a **32-bit single-cycle RISC-V CPU** capable of executing a subset of **RV32I instructions**, including:
+This repository implemets a **32-bit single-cycle RISC-V CPU** capable of executing a subset of **RV32I instructions**, including:
 
 * **R-Type:** `ADD`, `SUB`, `AND`, `OR`, `SLT`
 * **I-Type:** `ADDI`, `LW`
