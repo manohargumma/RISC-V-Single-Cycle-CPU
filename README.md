@@ -124,7 +124,7 @@ iverilog -o cpu_tb riscv_single_file.v
 vvp cpu_tb
 gtkwave dump.vcd
 ```
-
+![image](https://github.com/manohargumma/RISC-V-Single-Cycle-CPU/blob/b6b7f883aad7a2d0fbb4b709770c069c3fa6c5ed/images/Screenshot%20from%202025-10-26%2012-26-07.png)
 Check:
 
 * PC increments by 4
