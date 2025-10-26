@@ -2570,3 +2570,264 @@ yosys>
 
 ```
 </details>
+
+
+
+
+
+### Generate gate-level netlist
+```bash
+yosys>write_verilog -noattr synthesized_cpu.v
+
+```
+![image](https://github.com/manohargumma/RISC-V-Single-Cycle-CPU/blob/b8d33d3d2c383e64bc2ec87ffbbe334f33fdad4a/images/Screenshot%20from%202025-10-26%2016-38-24.png)
+
+## Generate JSON netlist for nextpnr/visualization
+```bash
+yosys>write_json synthesized_cpu.json
+
+```
+![image](https://github.com/manohargumma/RISC-V-Single-Cycle-CPU/blob/b8d33d3d2c383e64bc2ec87ffbbe334f33fdad4a/images/Screenshot%20from%202025-10-26%2016-34-40.png)
+
+## Show cell statistics
+```bash
+yosys>stat
+
+```
+```bash
+11. Printing statistics.
+
+=== ALU ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      356 wires
+     1786 wire bits
+        5 public wires
+      101 public wire bits
+        5 ports
+      101 port bits
+     1479 cells
+      478   $_AND_
+      404   $_MUX_
+       47   $_NOT_
+      422   $_OR_
+      128   $_XOR_
+
+=== ALU_Control ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       13 wires
+       43 wire bits
+        4 public wires
+       16 public wire bits
+        4 ports
+       16 port bits
+        1 memories
+       64 memory bits
+       18 cells
+        4   $_AND_
+        4   $_MUX_
+        4   $_NOT_
+        4   $_OR_
+        1   $meminit
+        1   $memrd_v2
+
+=== Branch_Adder ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      102 wires
+      288 wire bits
+        3 public wires
+       96 public wire bits
+        3 ports
+       96 port bits
+      220 cells
+      105   $_AND_
+       52   $_OR_
+       63   $_XOR_
+
+=== Data_Memory ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      403 wires
+     6589 wire bits
+       73 public wires
+     2186 public wire bits
+        7 ports
+      100 port bits
+     6465 cells
+     2112   $_AND_
+     2048   $_DFFE_PP0P_
+       64   $_MUX_
+       70   $_NOT_
+     2171   $_OR_
+
+=== Instruction_Memory ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        6 wires
+      104 wire bits
+        6 public wires
+      104 public wire bits
+        4 ports
+       66 port bits
+        1 memories
+     2048 memory bits
+       71 cells
+       70   $meminit
+        1   $memrd_v2
+
+=== MUX2to1 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        4 wires
+       97 wire bits
+        4 public wires
+       97 public wire bits
+        4 ports
+       97 port bits
+       32 cells
+       32   $_MUX_
+
+=== MUX2to1_DataMemory ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        4 wires
+       97 wire bits
+        4 public wires
+       97 public wire bits
+        4 ports
+       97 port bits
+       32 cells
+       32   $_MUX_
+
+=== RISCV_Top ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        2 wires
+        2 wire bits
+        2 public wires
+        2 public wire bits
+        2 ports
+        2 port bits
+
+=== Register_File ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      558 wires
+     5592 wire bits
+       42 public wires
+     1170 public wire bits
+        9 ports
+      114 port bits
+     5494 cells
+     2081   $_AND_
+     1024   $_DFFE_PP0P_
+       64   $_MUX_
+      111   $_NOT_
+     2214   $_OR_
+
+=== immediate_generator ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       98 wires
+      404 wire bits
+        2 public wires
+       64 public wire bits
+        2 ports
+       64 port bits
+      246 cells
+       76   $_AND_
+       32   $_MUX_
+       14   $_NOT_
+      124   $_OR_
+
+=== main_control_unit ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       32 wires
+       55 wire bits
+        8 public wires
+       15 public wire bits
+        8 ports
+       15 port bits
+       34 cells
+        2   $_MUX_
+       10   $_NOT_
+       22   $_OR_
+
+=== pc_adder ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       24 wires
+      117 wire bits
+        2 public wires
+       64 public wire bits
+        2 ports
+       64 port bits
+       79 cells
+       49   $_AND_
+        1   $_NOT_
+       29   $_XOR_
+
+=== pc_mux ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        4 wires
+       97 wire bits
+        4 public wires
+       97 public wire bits
+        4 ports
+       97 port bits
+       32 cells
+       32   $_MUX_
+
+=== program_counter ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        4 wires
+       66 wire bits
+        4 public wires
+       66 public wire bits
+        4 ports
+       66 port bits
+       32 cells
+       32   $_DFF_PP0_
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+        - RISCV_Top
+
+        +----------Count including submodules.
+        | 
+        2 wires
+        2 wire bits
+        2 public wires
+        2 public wire bits
+        2 ports
+        2 port bits
+        - memories
+        - memory bits
+        - processes
+        - cells
+
+
+
+```
+
